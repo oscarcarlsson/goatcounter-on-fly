@@ -31,9 +31,17 @@ PRs are always welcome!
    git clone https://github.com/oscarcarlsson/goatcounter-on-fly.git && cd goatcounter-on-fly
    ```
 
-1. Run `flyctl launch --no-deploy` and fill in the tutorial - you
-   _don't_ need Redis nor Postgres! This will generate a `fly.toml`
-   but won't try to launch anything yet.
+1. Run the command below and answer the questions - you _don't_ need
+   Redis nor Postgres! This will generate a `fly.toml` but won't try
+   to launch anything yet. Make sure you change the name for the
+   application as well.
+
+   ```
+   flyctl launch --no-deploy --memory 256 --name CHANGEME
+   ```
+
+   If you want, you can always specify the region to launch the VM in.
+   You can list all regions by running: `flyctl platform regions`
 
 1. Create a volume for the database, change to your preferred region:
 
