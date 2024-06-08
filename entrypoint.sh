@@ -8,19 +8,18 @@ if [ -f "$GOATCOUNTER_DB" ]; then
 else
     echo "No database found, attempt to restore from a replica."
 
-    # Create empty database with WAL enabled
-    sqlite3 "$GOATCOUNTER_DB" "PRAGMA journal_mode = wal"
-
-    # Attempt to restore
-    if ! litestream restore -if-replica-exists "$GOATCOUNTER_DB"; then
+    # Attempt to restore.  If replica does not exist litestream will
+    # return 0, which is confusing.
+    if litestream restore -if-replica-exists "$GOATCOUNTER_DB"; then
         # Guessing we just don't have a database setup - lets create
         # one!
-        goatcounter db create site \
-                    -createdb \
-                    -domain "$GOATCOUNTER_DOMAIN" \
-                    -user.email "$GOATCOUNTER_EMAIL" \
-                    -password "$GOATCOUNTER_PASSWORD" \
-                    -db "$GOATCOUNTER_DB" || echo "panic"
+
+        /usr/local/bin/goatcounter db create site \
+                                   -db "sqlite+file:$GOATCOUNTER_DB" \
+                                   -createdb \
+                                   -vhost "$GOATCOUNTER_DOMAIN" \
+                                   -user.email "$GOATCOUNTER_EMAIL" \
+                                   -password "$GOATCOUNTER_PASSWORD" || echo "panic"
 
         echo "Setup a new goatcounter site"
     else
