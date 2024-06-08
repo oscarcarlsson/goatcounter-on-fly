@@ -4,7 +4,8 @@ This repository contains a template for setting up and running
 [goatcounter][goatcounter-repo] on [fly.io][flyio], including
 Litestream backing up our SQLite database to a S3 (compatible) bucket.
 This setup runs great on the fly.io free tier (1 shared CPU, 256 MB of
-memory), at least for a small website.
+memory, 1 GB of disk), at least for a small website.  You can also
+make use of [Backblaze B2's][b2] free tier[^1] to store your backups.
 
 **One important thing to note** is that this is a single node setup
 using local volumes, so in case the host running our container dies we
@@ -17,8 +18,8 @@ PRs are always welcome!
 ## Prerequisites
 
  - A fly.io account
- - An account with a S3 (compatible) storage provider (like
-   Backblaze[^1]), with a bucket already setup & credentials at hand
+ - An account with a S3 (compatible) storage provider, with a bucket
+   already setup & credentials at hand
  - flyctl CLI installed
 
 ## Usage
@@ -86,3 +87,4 @@ PRs are always welcome!
 
 [goatcounter-repo]: https://github.com/arp242/goatcounter
 [flyio]: https://fly.io/
+[b2]: https://www.backblaze.com/cloud-storage
