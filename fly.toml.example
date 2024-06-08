@@ -13,16 +13,22 @@ kill_timeout = '5s'
 [build]
 
 [env]
-  GOATCOUNTER_DB = '/data/goatcounter.sqlite3'
-  GOATCOUNTER_DEBUG = ''
-  GOATCOUNTER_DOMAIN = 'stats.monotux.tech'
-  GOATCOUNTER_EMAIL = 'oscar@spindel.tax'
-  GOATCOUNTER_LISTEN = '0.0.0.0:8080'
-  GOATCOUNTER_SMTP = ''
-  # Handle these as secrets or like below
+  # Change these!
+  GOATCOUNTER_DOMAIN = 'goatcounter.example.com'
+  GOATCOUNTER_EMAIL = 'goatcounter-noreply@example.com'
+
+  # Change these for your S3 provider!
   LITESTREAM_REPLICA_ENDPOINT = ''
-  LITESTREAM_REPLICA_BUCKET = ''
-  LITESTREAM_REPLICA_PATH = ''
+  LITESTREAM_REPLICA_BUCKET = '' # bucket name
+
+  # These can be blank
+  GOATCOUNTER_SMTP = ''
+  GOATCOUNTER_DEBUG = ''
+
+  # Don't change these
+  GOATCOUNTER_LISTEN = ':8080'
+  GOATCOUNTER_DB = '/data/goatcounter.sqlite3'
+  LITESTREAM_REPLICA_PATH = 'goatcounter_replica.sqlite3'
 
 [[mounts]]
   source = 'goatcounter_data'
@@ -32,8 +38,8 @@ kill_timeout = '5s'
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = false
   # Keep one instance running at all times
+  auto_stop_machines = false
   auto_start_machines = true
   min_machines_running = 1
   processes = ['app']

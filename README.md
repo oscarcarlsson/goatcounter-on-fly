@@ -49,18 +49,18 @@ PRs are always welcome!
      GOATCOUNTER_DOMAIN = 'goatcounter.example.com'
      GOATCOUNTER_EMAIL = 'john.doe@example.com'
 
-     # Don't change these
-     GOATCOUNTER_LISTEN = '0.0.0.0:8080'
-     GOATCOUNTER_DB = '/data/goatcounter.sqlite3'
+     # Change these for your S3 provider!
+     LITESTREAM_REPLICA_ENDPOINT = ''
+     LITESTREAM_REPLICA_BUCKET = ''
 
      # These can be blank
      GOATCOUNTER_SMTP = ''
      GOATCOUNTER_DEBUG = ''
 
-     # Change these for your S3 provider!
-     LITESTREAM_REPLICA_ENDPOINT = ''
-     LITESTREAM_REPLICA_BUCKET = ''
-     LITESTREAM_REPLICA_PATH = ''
+     # Don't change these
+     GOATCOUNTER_LISTEN = '0.0.0.0:8080'
+     GOATCOUNTER_DB = '/data/goatcounter.sqlite3'
+     LITESTREAM_REPLICA_PATH = 'goatcounter_replica.sqlite3'
    ```
 
    Also make sure that the mount section looks something like this:
