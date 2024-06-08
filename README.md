@@ -19,7 +19,8 @@ PRs are always welcome!
 
  - A fly.io account
  - An account with a S3 (compatible) storage provider, with a bucket
-   already setup & credentials at hand
+   already setup & credentials at hand ([see this tutorial for
+   Backblaze specific instructions][litestreambackblaze])
  - flyctl CLI installed
 
 ## Usage
@@ -83,8 +84,14 @@ PRs are always welcome!
 1. Now, try to deploy the application!
 
 
+## Credits
+
+This is heavily inspired by [fspoettel/linkding-on-fly][fspoettel].
+
 [^1]: Their free tier is 10GB free, then $0.005 per GB, which is _plenty_
 
 [goatcounter-repo]: https://github.com/arp242/goatcounter
 [flyio]: https://fly.io/
 [b2]: https://www.backblaze.com/cloud-storage
+[fspoettel]: https://github.com/fspoettel/linkding-on-fly
+[litestreambackblaze]: https://litestream.io/guides/backblaze/
