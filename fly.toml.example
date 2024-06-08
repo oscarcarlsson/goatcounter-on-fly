@@ -1,0 +1,69 @@
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+# Change parameters to your liking
+app = 'changeme'
+primary_region = 'changeme'
+kill_signal = 'SIGINT'
+kill_timeout = '5s'
+
+[experimental]
+  auto_rollback = true
+
+[build]
+
+[env]
+  GOATCOUNTER_DB = '/data/goatcounter.sqlite3'
+  GOATCOUNTER_DEBUG = ''
+  GOATCOUNTER_DOMAIN = 'stats.monotux.tech'
+  GOATCOUNTER_EMAIL = 'oscar@spindel.tax'
+  GOATCOUNTER_LISTEN = '0.0.0.0:8080'
+  GOATCOUNTER_SMTP = ''
+  # Handle these as secrets or like below
+  LITESTREAM_REPLICA_ENDPOINT = ''
+  LITESTREAM_REPLICA_BUCKET = ''
+  LITESTREAM_REPLICA_PATH = ''
+
+[[mounts]]
+  source = 'goatcounter_data'
+  destination = '/data'
+  processes = ['app']
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false
+  # Keep one instance running at all times
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 8080
+  processes = ['app']
+
+[[services.ports]]
+    port = 80
+    handlers = ['http']
+    force_https = true
+
+[[services.ports]]
+    port = 443
+    handlers = ['tls', 'http']
+
+  [services.concurrency]
+    type = 'connections'
+    hard_limit = 25
+    soft_limit = 20
+
+[checks]
+  [checks.tcpok]
+    grace_period = "30s"
+    interval = "15s"
+    port = 8080
+    timeout = "10s"
+    type = "tcp"
+
+[[vm]]
+  size = 'shared-cpu-1x'
