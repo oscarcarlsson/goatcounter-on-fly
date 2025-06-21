@@ -1,4 +1,4 @@
-ARG ALPINE_IMAGE_TAG=3.20
+ARG ALPINE_IMAGE_TAG=3.22
 
 FROM docker.io/alpine:$ALPINE_IMAGE_TAG as builder
 
@@ -11,7 +11,7 @@ RUN tar -C /usr/local/bin -xzf /tmp/litestream.tar.gz
 # Pull goatcounter image
 FROM alpine:$ALPINE_IMAGE_TAG
 
-ARG GOATCOUNTER_VERSION=v2.5.0
+ARG GOATCOUNTER_VERSION=v2.6.0
 
 # Copy Litestream from builder.
 COPY --from=builder /usr/local/bin/litestream /usr/local/bin/litestream
